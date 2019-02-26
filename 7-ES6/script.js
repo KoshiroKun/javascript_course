@@ -329,3 +329,89 @@ const all = [h, ...boxes5]; // Works too with nodes and nodeList
 Array.from(all).forEach(current => current.style.color = 'purple');
 
 console.log('=================================');
+
+// Lecture: Rest parameters
+
+// ES5
+function isFullAge5() {
+    // arguments have access to every function parameter and has a Array-like structure (not an array)
+    var argsArr = Array.prototype.slice.call(arguments);
+
+    argsArr.forEach(function(current) {
+        console.log((2018 - current) >= 18)
+    });
+}
+
+isFullAge5(1990, 1999, 2012);
+// Output: true, true, false
+
+// ES6
+// It looks like spread operation but the difference is spread operator is used in the function call and the rest parameters in the function declaration
+function isFullAge6(...years) {
+    // Here is currently an array
+    years.forEach(current => console.log((2018 - current) >= 18));
+}
+
+isFullAge6(1990, 1999, 2012);
+// Output: true, true, false
+
+
+// If we want to add one parameter to the functions...
+
+// ES5
+function isFullAge51(limit) {
+    // In ES5 you must slice after the first element
+    var argsArr = Array.prototype.slice.call(arguments, 1);
+
+    argsArr.forEach(function(current) {
+        console.log((2018 - current) >= limit)
+    });
+}
+
+isFullAge51(18, 1990, 1999, 2012);
+// Output: true, true, false
+
+// ES6
+function isFullAge61(limit, ...years) {
+    // In ES6 it's clear the first parameter, and the rest parameters
+    years.forEach(current => console.log((2018 - current) >= limit));
+}
+
+isFullAge61(18, 1990, 1999, 2012);
+// Output: true, true, false
+
+console.log('=================================');
+
+// Lecture: Default parameters
+
+// ES5
+function SmithPerson5(firstName, yearOfBirth, lastName, nationality) {
+    lastName = lastName === undefined ? 'Smith' : lastName;
+    nationality = nationality === undefined ? 'American' : nationality;
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.yearOfBirth = yearOfBirth;
+    this.nationality = nationality;
+}
+
+var john5 = new SmithPerson5('John', 1990);
+var emily5 = new SmithPerson5('Emily', 1983, 'Diaz', 'Spanish');
+console.log(john5, emily5);
+// Output: Object { firstName: "John", lastname: "Smith", yearOfBirth: 1990, nationality: "American"}
+// Object { firstName: "Emily", lastName: "Diaz", yearOfBirth: 1983, nationality: "Spanish" }
+
+// ES6
+function SmithPerson6(firstName, yearOfBirth, lastName = 'Smith', nationality = 'American') {
+    // In ES6 you do not need to check the undefineds, it is already done in the function declaration
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.yearOfBirth = yearOfBirth;
+    this.nationality = nationality;
+}
+
+const john6 = new SmithPerson6('John', 1990);
+const emily6 = new SmithPerson6('Emily', 1983, 'Diaz', 'Spanish');
+console.log(john6, emily6);
+// Output: Object { firstName: "John", lastname: "Smith", yearOfBirth: 1990, nationality: "American"}
+// Object { firstName: "Emily", lastName: "Diaz", yearOfBirth: 1983, nationality: "Spanish" }
