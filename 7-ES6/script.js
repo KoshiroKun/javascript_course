@@ -337,7 +337,7 @@ function isFullAge5() {
     // arguments have access to every function parameter and has a Array-like structure (not an array)
     var argsArr = Array.prototype.slice.call(arguments);
 
-    argsArr.forEach(function(current) {
+    argsArr.forEach(function (current) {
         console.log((2018 - current) >= 18)
     });
 }
@@ -363,7 +363,7 @@ function isFullAge51(limit) {
     // In ES5 you must slice after the first element
     var argsArr = Array.prototype.slice.call(arguments, 1);
 
-    argsArr.forEach(function(current) {
+    argsArr.forEach(function (current) {
         console.log((2018 - current) >= limit)
     });
 }
@@ -415,3 +415,170 @@ const emily6 = new SmithPerson6('Emily', 1983, 'Diaz', 'Spanish');
 console.log(john6, emily6);
 // Output: Object { firstName: "John", lastname: "Smith", yearOfBirth: 1990, nationality: "American"}
 // Object { firstName: "Emily", lastName: "Diaz", yearOfBirth: 1983, nationality: "Spanish" }
+
+console.log('=================================');
+
+// Lecture: Maps
+
+// Objects in ES5 are hashmaps structures which the key is a string and the value is any
+// Maps in ES6 are hashmaps structures which the key can be any too
+
+// Pros of using Maps
+// Key can be anything
+// Are iterables
+// It's easy to get the size of the collection
+// It's easy to put and remove elements
+
+// ES6
+const question = new Map();
+question.set('question', 'What is the official name of the latest major Javascript version?');
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES7');
+question.set('correct', 3);
+question.set(true, 'Correct answer!');
+question.set(false, 'Wrong, please try again!');
+
+console.log(question.get('question'));
+//console.log(question.size);
+
+/*if (question.has(4)) {
+    question.delete(4);
+}*/
+
+//console.log(question);
+
+//question.clear();
+//console.log(question);
+
+//question.forEach((value, key) => console.log(`This is ${key}, and it's set to ${value}`));
+
+// Destructuring
+for (let [key, value] of question.entries()) {
+    if (typeof (key) === 'number') {
+        console.log(`Answer ${key}: ${value}`)
+    }
+}
+
+//const ans = parseInt(prompt('Write the correct answer'));
+//console.log(question.get(ans === question.get('correct')));
+
+console.log('=================================');
+
+// Lecture: Classes
+
+// ES5
+var Person5c = function (name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+}
+
+Person5c.prototype.calculateAge = function () {
+    var age = new Date().getFullYear() - this.yearOfBirth;
+    console.log(age);
+}
+
+var john5c = new Person5c('John', 1990, 'teacher');
+
+// ES6
+class Person6c {
+    constructor(name, yearOfBirth, job) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+    }
+
+    calculateAge() {
+        const age = new Date().getFullYear() - this.yearOfBirth;
+        console.log(age);
+    }
+
+    // This method is only available for the class, not for the new objects
+    static greetings() {
+        console.log('Hey there!');
+    }
+}
+
+const john6c = new Person6c('John', 1990, 'teacher');
+
+Person6c.greetings();
+
+console.log('=================================');
+
+// Lecture: Classes and Subclasses
+
+// ES5
+var Person5c2 = function (name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+}
+
+Person5c2.prototype.calculateAge = function () {
+    var age = new Date().getFullYear() - this.yearOfBirth;
+    console.log(age);
+}
+
+var Athlete5 = function (name, yearOfBirth, job, olympicGames, medals) {
+    Person5c2.call(this, name, yearOfBirth, job);
+    this.olympicGames = olympicGames;
+    this.medals = medals;
+}
+
+// Connect Athlete subclass with Person class
+Athlete5.prototype = Object.create(Person5c2.prototype);
+
+// Add methods to athlete subclass
+Athlete5.prototype.wonMedal = function () {
+    this.medals++;
+    console.log(this.medals);
+}
+
+var johnAthlete5 = new Athlete5('John', 1990, 'swimmer', 3, 10);
+
+// Now have access to own functions and parent class functions
+johnAthlete5.calculateAge();
+johnAthlete5.wonMedal();
+
+// ES6
+class Person6c2 {
+    constructor(name, yearOfBirth, job) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+    }
+
+    calculateAge() {
+        const age = new Date().getFullYear() - this.yearOfBirth;
+        console.log(age);
+    }
+
+    // This method is only available for the class, not for the new objects
+    static greetings() {
+        console.log('Hey there!');
+    }
+}
+
+// With extends you do the same than before connecting the prototypes
+class Athlete6 extends Person6c2 {
+    // You must pass the attributes of the parent class
+    constructor(name, yearOfBirth, job, olympicGames, medals) {
+        super(name, yearOfBirth, job);
+        this.olympicGames = olympicGames;
+        this.medals = medals;
+    }
+
+    wonMedal() {
+        this.medals++;
+        console.log(this.medals);
+    }
+}
+
+const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
+
+johnAthlete6.calculateAge();
+johnAthlete6.wonMedal();
+
+console.log('=================================');
