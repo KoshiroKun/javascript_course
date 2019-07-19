@@ -37,7 +37,7 @@ console.log(name6);
 
 Scope differences in var, const and let
 
-#### ES5
+ES5
 
 The ```var``` has function scope and variables can be read outside block statement
 
@@ -56,7 +56,7 @@ driversLicense5(true);
 // Output: "John, born in 1990, is now officially allowed to drive a car"
 ```
 
-#### ES6
+ES6
 
 The ```let``` and ```const``` have block scope and can not be read from outside
 
@@ -76,7 +76,7 @@ driversLicense6(true);
 // Output:
 ```
 
-#### ES5
+ES5
 
 The ```var``` will be modified/replaced inside the for loop
 
@@ -102,7 +102,7 @@ theLoop5();
 */
 ```
 
-#### ES6
+ES6
 
 The ```let``` will not be modified/replaced and the i inside the for loop will be independant
 
@@ -124,7 +124,7 @@ theLoop6();
 
 ### 2.2 - Blocks and IIFEs
 
-#### ES5
+ES5
 
 ```javascript
 (function () {
@@ -136,7 +136,7 @@ theLoop6();
 // Output: 
 ```
 
-#### ES6
+ES6
 
 ```javascript
 {
@@ -163,7 +163,7 @@ function calcAge(year) {
 }
 ```
 
-#### ES5
+ES5
 
 ```javascript
 console.log('This is ' + firstName + ' ' + lastName + '. He was born in ' + yearOfBirth + '. Today, he is ' + calcAge(yearOfBirth) + ' years old.');
@@ -171,7 +171,7 @@ console.log('This is ' + firstName + ' ' + lastName + '. He was born in ' + year
 // Output: This is John Smith. He was born in 1990. Today, he is 28 years old.
 ```
 
-#### ES6
+ES6
 
 In ES6 we can use **Template Strings** to place variables and even expressions
 
@@ -212,7 +212,7 @@ console.log(`${firstName} `.repeat(5));
 const years = [1990, 1965, 1982, 1937];
 ```
 
-#### ES5
+ES5
 
 ```javascript
 var ages5 = years.map(function (el) {
@@ -222,7 +222,7 @@ var ages5 = years.map(function (el) {
 console.log(ages5);
 ```
 
-#### ES6
+ES6
 
 ```javascript
 let ages6 = years.map(el => 2018 - el);
@@ -241,7 +241,7 @@ ages6 = years.map((el, index) => {
 
 Arrow functions share the ```this``` value with the outer function
 
-#### ES5
+ES5
 
 ```javascript
 var box5 = {
@@ -262,7 +262,7 @@ var box5 = {
 
 * We need to store this into var self because in the inner function on the event listener this points to global scope (window object)
 
-#### ES6
+ES6
 
 ```javascript
 var box6 = {
@@ -292,7 +292,7 @@ function Person(name) {
 var friends = ['Bob', 'Jane', 'Mark'];
 ```
 
-#### ES5
+ES5
 
 With bind we can pass the this variable into the function, because we're binding it from outer the function
 
@@ -307,7 +307,7 @@ Person.prototype.myFriends5 = function (friends) {
 new Person('John').myFriends5(friends);
 ```
 
-#### ES6
+ES6
 
 You can use this because arrow functions shares the this with the outer function, and in the outer function this points to the current object
 
@@ -323,7 +323,7 @@ new Person('Mike').myFriends6(friends);
 
 ### 2.5 - Destructuring
 
-#### ES5
+ES5
 
 In ES5 for apply variables from array you must access/store them
 
@@ -341,7 +341,7 @@ console.log(ageD5);
 */
 ```
 
-#### ES6
+ES6
 
 In ES6 you can destructure the array
 
@@ -388,7 +388,7 @@ console.log(retirement);
 const boxes = document.querySelectorAll('.box');
 ```
 
-#### ES5
+ES5
 
 In ES5 for use forEach in a nodeList, first we need to slice it into Array
 
@@ -399,7 +399,7 @@ boxesArr5.forEach(function (current) {
 });
 ```
 
-#### ES6
+ES6
 
 In ES6 we can generate an array with the function ```from```
 
@@ -410,7 +410,7 @@ boxesArr6.forEach(current => current.style.backgroundColor = 'dodgerblue');
 
 For acces all elements in nodeList
 
-#### ES5
+ES5
 
 ```javascript
 for (var i = 0; i < boxesArr5.length; i++) {
@@ -419,7 +419,7 @@ for (var i = 0; i < boxesArr5.length; i++) {
 }
 ```
 
-#### ES6
+ES6
 
 ```javascript
 for (const current of boxesArr6) {
@@ -437,7 +437,7 @@ var fullAge = ages.map(function (current) {
 });
 ```
 
-#### ES5
+ES5
 
 ```javascript
 console.log(fullAge);
@@ -450,7 +450,7 @@ console.log(ages[fullAge.indexOf(true)]);
 // Output: 21
 ```
 
-#### ES6
+ES6
 
 * findIndex - Find the index where the condition is true
 * find - Find the element where the condition is true
@@ -477,7 +477,7 @@ console.log(sum1);
 // Output: 81
 ```
 
-#### ES5
+ES5
 
 ```javascript
 var ages = [18, 30, 12, 21];
@@ -487,7 +487,7 @@ console.log(sum2);
 // Output 81
 ```
 
-#### ES6
+ES6
 
 Spread operator applies the values as arguments
 
@@ -514,7 +514,7 @@ Array.from(all).forEach(current => current.style.color = 'purple');
 
 ### 2.8 - Rest parameters
 
-#### ES5
+ES5
 
 ```javascript
 function isFullAge5() {
@@ -532,7 +532,7 @@ isFullAge5(1990, 1999, 2012);
 
 ### 2.9 - Default parameters
 
-#### ES5
+ES5
 
 ```javascript
 function SmithPerson5(firstName, yearOfBirth, lastName, nationality) {
@@ -552,8 +552,7 @@ console.log(john5, emily5);
 // Object { firstName: "Emily", lastName: "Diaz", yearOfBirth: 1983, nationality: "Spanish" }
 ```
 
-
-#### ES6
+ES6
 
 ```javascript
 function SmithPerson6(firstName, yearOfBirth, lastName = 'Smith', nationality = 'American') {
@@ -584,7 +583,7 @@ Pros of using Maps
 * It's easy to get the size of the collection
 * It's easy to put and remove elements
 
-#### ES6
+ES6
 
 ```javascript
 const question = new Map();
@@ -624,7 +623,7 @@ for (let [key, value] of question.entries()) {
 
 ### 2.11 - Classes
 
-#### ES5
+ES5
 
 ```javascript
 var Person5c = function (name, yearOfBirth, job) {
@@ -641,7 +640,7 @@ Person5c.prototype.calculateAge = function () {
 var john5c = new Person5c('John', 1990, 'teacher');
 ```
 
-### ES6
+ES6
 
 ```javascript
 class Person6c {
@@ -672,7 +671,7 @@ The static method will be not available for the child objects of the class.
 
 ### 2.12 - Classes and Subclasses
 
-#### ES5
+ES5
 
 ```javascript
 var Person5c2 = function (name, yearOfBirth, job) {
@@ -708,7 +707,7 @@ johnAthlete5.calculateAge();
 johnAthlete5.wonMedal();
 ```
 
-#### ES6
+ES6
 
 ```javascript
 class Person6c2 {
@@ -748,3 +747,94 @@ const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
 johnAthlete6.calculateAge();
 johnAthlete6.wonMedal();
 ```
+
+## 3. - Asynchronous Javascript
+
+Synchronous
+
+```javascript
+const second = () => {
+            console.log('Second');
+}
+
+const first = () => {
+    console.log('Hey there');
+    second();
+    console.log('The end');
+}
+
+first();
+```
+
+Output: ```Hey there```, ```Second```, ```The end```
+
+Asynchronous
+
+```javascript
+const second = () => {
+    setTimeout(() => {
+        console.log('Async Hey there');
+    }, 2000);
+}
+
+const first = () => {
+    console.log('Hey there');
+    second();
+    console.log('The end');
+}
+
+first();
+```
+
+Output: ```Hey there```, ```The end```, ```Async Hey there```
+
+The example displayed above uses a Web API function setTimeout that is stored on the Browser (Web API) with the callback function, in this case the console.log, meanwhile the rest of the code is executed on the execution stack.
+
+When the timer reachs 0 the data stored on the Web API is sent to the message queue which will move that data (the callback function) to the execution stack through the event loop when the execution stack gets empty.
+
+## Asynchronous with Callbacks (the old way)
+
+In the following examples we will use setTimeouts simulating a Rest API response delay.
+
+```javascript
+
+function getRecipe() {
+            setTimeout(() => {
+                const recipeID = [523, 883, 432, 974];
+                console.log(recipeID);
+
+                setTimeout(id => {
+                    const recipe = {
+                        title: 'Fresh tomato pasta',
+                        publisher: 'Jonas'
+                    };
+                    console.log(`${id}: ${recipe.title}`);
+
+                    setTimeout(publisher => {
+                        const recipe2 = {
+                            title: 'Italian Pizza',
+                            publisher: 'Jonas'
+                        };
+                        console.log(recipe);
+                    }, 1500, recipe.publisher);
+                }, 1500, recipeID[2]);
+            }, 1500);
+        }
+
+        getRecipe();
+```
+
+The parameter pass to the callback function in setTimeout is the third parameter allowed. For example the id in the second setTimeout is the recipeID[2].
+
+In the example above you can see what is called as callback hell.
+
+## Promises
+
+A promise is an object that keeps track about whether a certain event has happened already or not.
+
+### Promises States
+
+* Pending
+* Settled / Resolved
+  * Fulfilled
+  * Rejected
