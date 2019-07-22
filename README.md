@@ -838,3 +838,50 @@ A promise is an object that keeps track about whether a certain event has happen
 * Settled / Resolved
   * Fulfilled
   * Rejected
+
+### Create a Promise
+
+```javascript
+const promise = new Promise((resolve, reject) => {
+    if (thingsGoOk) resolve('All clear!');
+    else reject('Something was wrong :(');
+ }
+```
+
+### Consume the promise
+
+```javascript
+promise
+    .then(myResult => { ... })
+    .catch(myError => { ... });
+```
+
+### ES8 async / await
+
+```javascript
+async function getRecipesAW() {
+    const IDs = await getIDs;
+    console.log(IDs);
+    const recipe = await getRecipe(IDs[2]);
+    console.log(recipe);
+    const related = await getRelated('Jonas');
+    console.log(related);
+
+    return recipe;
+}
+
+getRecipesAW().then(result => { console.log(`${result} is the best ever!`) });
+```
+
+With ES8 you can create an async function that will run in the background, with the keyword await the execution of that code will be stoped until the promise of that value is fullfiled.
+
+The await keyword must be used only of functions not to stop the main execution code, for example:
+
+```javascript
+const res = getRecipesAW();
+console.log(res);
+```
+
+In this case, the output will be a pending Promise because getRecipesAW continues running in the background but the main code is still executed line by line
+
+Remember that, any async function returns a promise and the value of the return (if it has).
