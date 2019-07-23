@@ -885,3 +885,126 @@ console.log(res);
 In this case, the output will be a pending Promise because getRecipesAW continues running in the background but the main code is still executed line by line
 
 Remember that, any async function returns a promise and the value of the return (if it has).
+
+---
+
+## Install and use NodeJs portable
+
+### Set System Variables
+
+In the cmd type ```set PATH=%PATH%;yourNodejsPath;yourNPMPath```
+
+Check that returns the version
+
+```bash
+node -v
+npm -v
+```
+
+## Create package.json
+
+Use the following command on your project folder: ```npm init```
+
+You can specify the package name, version, description, author, etc.
+
+## Init project from an existing package.json
+
+If node_modules are not present type ```npm install`` on the root folder of your project.
+
+## Install dependencies
+
+Use the following command on your project folder: ```npm install dependencyName --save-dev```
+
+In your package.json a development dependency is added.
+
+```json
+"devDependencies": {
+    "dependencyName": "^4.37.0"
+  }
+```
+
+* If you dont use -dev it will installed as a dependencies instead of devDependencies. The devDependencies are not installed when a production npm install is done.
+* If you use ```--global``` the dependency will be available for other projects.
+
+## Uninstall dependencies
+
+Use the following command on your project folder: ```npm uninstall dependencyName --save-dev```
+
+In your package.json a development dependency is removed.
+
+```json
+"devDependencies": {}
+```
+
+---
+
+## Webpack
+
+## Install webpack
+
+In your root folder of your project type:
+
+```bash
+npm install webpack --save-dev
+npm install webpack-cli --save-dev
+npm install webpack-dev-server --save-dev
+```
+
+## Configure webpack
+
+Webpack 4+ does not require a configuration file, but you can set up custom config file named ```webpack.config.js``` located in your project root folder.
+
+An example below:
+
+```javascript
+const path = require('path');
+
+module.exports = {
+    entry: './src/js/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'js/bundle.js'
+    }
+};
+```
+
+The main attributes of the object module.exports are:
+
+* entry: Defines your main .js file. By default webpack search index.js in the root folder.
+* output: Defines where goes your final product.
+  * path: The path of the final product, it must be an absolute route, for this you can use the built-in feature path.
+  * filename: The name of the final product.
+* loaders:
+* plugins: Allows to do complex processing of our input files.
+
+## Scripts
+
+In the package.json theres a section of scripts, there you can define diferent scripts which can be used with ```npm run scriptName```
+
+```json
+"scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+```
+
+Here you can se an example of a dev run and a production run, the difference in the mode parameters is production minifies the code, for development propouses development mode is faster to run.
+
+## Import modules from JS to another
+
+In order to do a very basic test, create a new .js file where you have the index.js with the following code:
+
+```javascript
+console.log('Imported module');
+export default 23;
+```
+
+On the index.js add:
+
+```javascript
+import num from './test'
+
+console.log(`I imported ${num} from another module!`);
+```
+
+The ```export default 23``` is the value that is recieved when you import the module on index.js. When you import the module the code it's executed and if something is export that value is returned.
