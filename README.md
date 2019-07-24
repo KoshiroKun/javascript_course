@@ -51,7 +51,7 @@ function driversLicense5(passedTest) {
     console.log(firstName + ', born in ' + yearOfBirth + ', is now officially allowed to drive a car.');
 }
 
-driversLicense5(true); 
+driversLicense5(true);
 
 // Output: "John, born in 1990, is now officially allowed to drive a car"
 ```
@@ -67,7 +67,7 @@ function driversLicense6(passedTest) {
         const yearOfBirth = 1990;
     }
 
-    //console.log(firstName + ', born in ' + yearOfBirth + ', is now offically allowed to drive a car.'); 
+    //console.log(firstName + ', born in ' + yearOfBirth + ', is now offically allowed to drive a car.');
     // This statement won't work because new variable types have block scope
 }
 
@@ -133,7 +133,7 @@ ES5
 
 //console.log(c); // Can not read c because is function scope
 
-// Output: 
+// Output:
 ```
 
 ES6
@@ -886,6 +886,57 @@ In this case, the output will be a pending Promise because getRecipesAW continue
 
 Remember that, any async function returns a promise and the value of the return (if it has).
 
+## ES6 Modules
+
+### Import/Export
+
+In order to do a very basic test, create a new .js file with the following code:
+
+```javascript
+console.log('Imported module');
+export default 23;
+```
+
+On index.js file add:
+
+```javascript
+import num from './test'
+
+console.log(`I imported ${num} from another module!`);
+```
+
+The ```export default 23``` is the value that is recieved when you import the module on index.js. When you import the module the code it's executed and if something is export that value is returned.
+
+The keyword ```default``` is used when you only want to export one thing and then in the import you can omit the {}. 
+
+Let's put an example of a multiple exports/import:
+
+```javascript
+export const add = (a, b) => a + b;
+export const multiply = (a, b) => a * b;
+export const ID = 23;
+```
+
+If you want to import only add and multiply:
+
+```javascript
+import {add, multiply} from './test'
+```
+
+If you want to use different names you can create an alias:
+
+```javascript
+import {add as a, multiply as m, ID} from './test'
+```
+
+Theres also a third way to do the import, import all from a module, here is how to import and use it:
+
+```javascript
+import * as searchView from './test'
+
+console.log(`The add: ${searchView.add}, the multiply: ${searchView.multiply}, the ID: ${searchView.ID}.`);
+```
+
 ---
 
 ## Install and use NodeJs portable
@@ -938,7 +989,7 @@ In your package.json a development dependency is removed.
 
 ---
 
-## Webpack
+## [Webpack](https://webpack.js.org/concepts/)
 
 ## Install webpack
 
@@ -947,7 +998,6 @@ In your root folder of your project type:
 ```bash
 npm install webpack --save-dev
 npm install webpack-cli --save-dev
-npm install webpack-dev-server --save-dev
 ```
 
 ## Configure webpack
@@ -958,13 +1008,23 @@ An example below:
 
 ```javascript
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './src/js/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/bundle.js'
-    }
+    },
+    devServer: {
+        contentBase: './dist'
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './src/index.html'
+        })
+    ]
 };
 ```
 
@@ -974,7 +1034,7 @@ The main attributes of the object module.exports are:
 * output: Defines where goes your final product.
   * path: The path of the final product, it must be an absolute route, for this you can use the built-in feature path.
   * filename: The name of the final product.
-* loaders:
+* loaders: Allows to import all kinds of diferents of files and process it.
 * plugins: Allows to do complex processing of our input files.
 
 ## Scripts
@@ -990,21 +1050,69 @@ In the package.json theres a section of scripts, there you can define diferent s
 
 Here you can se an example of a dev run and a production run, the difference in the mode parameters is production minifies the code, for development propouses development mode is faster to run.
 
-## Import modules from JS to another
+## Webpack Dev Server
 
-In order to do a very basic test, create a new .js file where you have the index.js with the following code:
+Webpack development server is useful for autorefresh the browser when the code changes.
 
-```javascript
-console.log('Imported module');
-export default 23;
+First install the dependency with ```npm install webpack-dev-server --save-dev```
+
+And add to your package.json the following lines:
+
+```json
+"start": "webpack-dev-server --mode development --open"
 ```
 
-On the index.js add:
+This will start the dev server in the default browser.
+
+With ```HtmlWebpackPlugin``` we can copy our HTML files automatically into our final folder each time we save the project.
 
 ```javascript
-import num from './test'
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-console.log(`I imported ${num} from another module!`);
+...
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './src/index.html'
+        })
+    ]
 ```
 
-The ```export default 23``` is the value that is recieved when you import the module on index.js. When you import the module the code it's executed and if something is export that value is returned.
+---
+
+## [Babel](https://babeljs.io/docs/en/)
+
+Babel is a toolchain that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript in current and older browsers or environments.
+
+### Install Babel
+
+Run the following commands:
+
+```bash
+npm install babel-core babel-loader babel-preset-env --save-dev
+npm install babel-polyfill --save
+```
+
+Polyfill will transform features that are missing in your target environment, this is needed on the final product, for this, don't add as a development dependency.
+
+### Config Babel
+
+Create a ```.babelrc``` file in your project root folder with the following settings:
+
+```javascript
+{
+    "presets": [
+        ["env", {
+            "targets": {
+                "browsers": [
+                    "last 5 versions",
+                    "ie >= 8"
+                ]
+            }
+        }]
+    ]
+}
+```
+
+The preset-env is a smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms.
