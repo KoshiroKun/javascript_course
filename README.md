@@ -907,7 +907,7 @@ console.log(`I imported ${num} from another module!`);
 
 The ```export default 23``` is the value that is recieved when you import the module on index.js. When you import the module the code it's executed and if something is export that value is returned.
 
-The keyword ```default``` is used when you only want to export one thing and then in the import you can omit the {}. 
+The keyword ```default``` is used when you only want to export one thing and then in the import you can omit the {}.
 
 Let's put an example of a multiple exports/import:
 
