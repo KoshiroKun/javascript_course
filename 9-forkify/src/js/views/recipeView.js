@@ -7,15 +7,17 @@ export const clearRecipe = () => {
 
 const formatCount = count => {
     if (count) {
-        const [int, dec] = count.toString().split('.').map(element => parseInt(element, 10));
+        // Workaround - the 10000 is for use 4 decimals, because Math.round returns an integer
+        const newCount = Math.round(count * 10000) / 10000;
+        const [int, dec] = newCount.toString().split('.').map(element => parseInt(element, 10));
 
-        if (!dec) return count;
+        if (!dec) return newCount;
 
         if (int === 0) {
-            const fr = new Fraction(count);
+            const fr = new Fraction(newCount);
             return `${fr.numerator}/${fr.denominator}`;
         } else {
-            const fr = new Fraction(count - int);
+            const fr = new Fraction(newCount - int);
             return `${int} ${fr.numerator}/${fr.denominator}`;
         }
     }

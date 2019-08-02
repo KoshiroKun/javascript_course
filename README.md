@@ -937,6 +937,35 @@ import * as searchView from './test'
 console.log(`The add: ${searchView.add}, the multiply: ${searchView.multiply}, the ID: ${searchView.ID}.`);
 ```
 
+## [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+
+The local storage it's a function that is located on the window object which allows to store key value pairs, key value must be always strings in the local storage. The localStorage has no expiration time.
+
+### Add items
+
+```javascript
+localStorage.setItem('id', 'test');
+```
+
+## Retrieve items
+
+```javascript
+localStorage.getItem('id');
+// Output: "test"
+```
+
+## Remove item
+
+```javascript
+localStorage.removeItem('id');
+```
+
+## Clear all items
+
+```javascript
+localStorage.clear();
+```
+
 ---
 
 ## Install and use NodeJs portable

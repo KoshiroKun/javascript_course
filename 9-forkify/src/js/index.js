@@ -9,6 +9,18 @@ import * as likesView from './views/likesView';
 import { elements, renderLoader, clearLoader } from './views/base';
 
 /**
+ * TODO
+ * ===================================================================
+ * Implement button to delete all shopping list items
+ * Implement functionality to manually add items to shopping list
+ * Save shopping list data in local storage
+ * Improve the ingrdient parsing algorithm
+ * Come up with an algorithm for calculating the amount of servings
+ * Improve error handling
+ * ===================================================================
+ */
+
+/**
  * Global state of the app
  *  - Search object
  *  - Current recipe object
@@ -16,9 +28,7 @@ import { elements, renderLoader, clearLoader } from './views/base';
  *  - Liked recipes
  */
 const state = {};
-window.state = state;
-
-likesView.toggleLikeMenu(0);
+//window.state = state;
 
 /**
  * SEARCH CONTROLLER
@@ -41,7 +51,7 @@ const controlSearch = async () => {
             await state.search.getResults();
 
             // 5) Render results on UI
-            console.log(state.search.recipes);
+            //console.log(state.search.recipes);
             clearLoader();
             searchView.renderResults(state.search.recipes);
         } catch (error) {
@@ -173,6 +183,19 @@ const controlLike = () => {
 
     likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
+
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+
+    // Restore likes from localStorage
+    state.likes.readStorage();
+
+    // Toggle like menu button
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
+
+    // Render the existing likes
+    state.likes.likes.forEach(like => likesView.renderLike(like));
+});
 
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', event => {
