@@ -1145,3 +1145,61 @@ Create a ```.babelrc``` file in your project root folder with the following sett
 ```
 
 The preset-env is a smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms.
+
+## [Node.js](https://nodejs.org/en/docs/)
+
+Node.js is a run-time environment for running Javascript outside of the browser with the support of the V8 Google.
+
+### Load Modules
+
+In Node.js each file (*.js) is treated as a separate module. In order to load the module we use
+
+```javascript
+const http = require('http');
+```
+
+### Create the server
+
+For mantain the server listening needs a port and an IP
+
+```javascript
+server.listen(1337, '127.0.0.1', () => {
+    console.log('Start listening');
+});
+```
+
+Then when the server recieves a request we can send a reponse code and a response data, always with a header first
+
+```javascript
+const server = http.createServer((request, response) => {
+    response.writeHead(200, { 'Content-type': 'text/html' });
+    response.end('knock knock');
+});
+```
+
+### Routing
+
+For create a simple routing system we will use the URL module
+
+```javascript
+const url = require('url');
+
+const server = http.createServer((request, response) => {
+    const pathName = url.parse(request.url, true).pathname;
+    const id = url.parse(request.url, true).query.id;
+    console.log(url.parse(request.url, true));
+
+    if (pathName === '/products' || pathName === '/') {
+        response.writeHead(200, { 'Content-type': 'text/html' });
+        response.end('This is the PRODUCTS page');
+    } else if (pathName === '/laptop' && (!id || id < laptopData.length)) {
+        response.writeHead(200, { 'Content-type': 'text/html' });
+        response.end(`This is the LAPTOP page ${id ? `for laptop ${id}` : ''}`);
+    } else {
+        response.writeHead(404, { 'Content-type': 'text/html' });
+        response.end('URL not found on the server');
+    }
+});
+```
+
+With the URL module we can parse de URL in the request to retrieve the pathname and the entire query. With the pathname you can manage the workflow of your webpage.
