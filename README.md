@@ -966,6 +966,65 @@ localStorage.removeItem('id');
 localStorage.clear();
 ```
 
+## Copying values (safely)
+
+```javascript
+let number = 1;
+let newNumber = number;
+
+number = 2;
+
+console.log(newNumber);
+// Output: 1
+```
+
+With the primitive values (numbers, strings, booleans, null, bigint, undefined and symbol) when one variable is assigned to another, creates a copy of that value.
+
+
+```javascript
+let myObject = { val: 1 };
+let myNewObject = myObject;
+
+myObject.val = 2;
+
+console.log(myNewObject.val);
+// Output: 2
+```
+
+With no primitive values (like Objects and Arrays) when one "variable" is assigned to another, creates a pointer of that reference in memory, for that, when the value is mutated, the pointer sees that change.
+
+In order to prevent that, we can safe copy with spread operator.
+
+```javascript
+let myObject = { val: 1 };
+let myNewObject = { ...myObject };
+// let myNewObject = { val: myObject.val };
+
+myObject.val = 2;
+
+console.log(myNewObject.val);
+// Output: 1
+```
+
+Note that the key in this is not the spread operator, we create a new object and spread the properties of ```myObject``` in it. In the commented line you can already see another way of doing it without spread operator, and works too.
+
+---
+
+## ES7
+
+### Classes without constructors
+
+```javascript
+class Person {
+    name = 'test',
+    age = 30
+
+    getName = () => this.name;
+}
+```
+
+In ES7 you can write classes without a constructor (and that implies no super method is needed either) putting the atributes outside of the constructor scope. Is common see the notation of arrow functions for functions inside of the class in order to prevents problems with the ```this``` keyword.
+
 ---
 
 ## Install and use NodeJs portable
